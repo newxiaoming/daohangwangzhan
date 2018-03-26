@@ -1,0 +1,89 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<link  href="__PUBLIC__/Assets/js/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/Assets/js/uploadify/jquery.uploadify.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$('#logo_file_upload').uploadify({
+		'formData'    : { 'timestamp' : '{$_SERVER["REQUEST_TIME"]}', 'token' : '{$_SERVER["REQUEST_TIME"]|MD5}' },
+		'onUploadSuccess' : function(file, data, response) {
+			$('#logo').val(data);
+		},
+		'swf'         : '__PUBLIC__/Assets/js/uploadify/uploadify.swf',
+		'uploader'    : '{:U("Public/upload")}',
+		'buttonImage' : '__PUBLIC__/Assets/js/uploadify/swfBnt.png',
+		'fileTypeExts': '*.bmp;*.jpg;*.jpeg;*.gif;*.png'
+	});
+	
+	$('#qrcode_file_upload').uploadify({
+		'formData'    : { 'timestamp' : '{:date("YmdHis")}', 'token' : '{:MD5(date("YmdHis"))}' },
+		'onUploadSuccess' : function(file, data, response) {
+			$('#qrcode').val(data);
+		},
+		'swf'         : '__PUBLIC__/Assets/js/uploadify/uploadify.swf',
+		'uploader'    : '{:U("Public/upload")}',
+		'buttonImage' : '__PUBLIC__/Assets/js/uploadify/swfBnt.png',
+		'fileTypeExts': '*.bmp;*.jpg;*.jpeg;*.gif;*.png'
+	});
+	
+});
+</script>
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+            <strong>{:lang('breadclumb_colon')}</strong>
+            {:lang(MODULE_NAME)}<span></span>
+        </h3>
+    </div>
+    <div id="CooperationMain" class="box clear-fix">
+        <div class="layout-block-header"><h2>{:lang('system_setting')}</h2></div>
+        <ul class="ui-tab-group">
+            <volist name="setting" id="list">
+                <li <eq name="i" value="1"> class="active"</eq>><q>{$key|lang}</q></li>
+            </volist>
+        </ul>
+        
+        <volist name="setting" id="vo">
+            <div class="info-block" id="{$key}">
+                <form method="post" action="__SELF__" enctype="multipart/form-data" class="form-horizontal" id="ajaxform-{$key}">
+                <table class="info-table">
+                    <tbody>
+                        <volist name="vo" id="k">
+                        <tr>
+                            <th>{$k.alias}</th>
+                            <td>
+                                {$k|setting}
+                                <notempty name="k.decription"><span class="ui-validityshower-info">{$k.decription}</span></notempty>
+                            </td>
+                        </tr>
+						<eq name="k.separator" value="1"><tr><th colspan=2>&nbsp;</th></tr></eq>
+                        </volist>
+                        
+                        <tr><th>&nbsp;</th><td><input type="submit" class="btn btn-ok" value="{:lang('confirm')}" /><input type="reset" class="btn" value="{:lang('reset')}" /></td></tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </volist>
+          
+    </div><!--.box-->
+    <script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.form.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#CooperationMain').tabs();	
+})
+$('form').ajaxForm({
+	timeout: 5000,
+	error:function(){ alert("{:lang('ajaxError')}");},
+	beforeSubmit:function(){ $('#ajaxLoading').show();},
+	success:function(data){ 
+		$('#ajaxLoading').hide();
+		if(data.status==1){
+			$.alert(data.info,data.status,false);
+		}else{
+			$.alert(data.info,data.status);
+		}
+	},
+	dataType: 'json'
+});
+</script>
+{:W("Foot")}

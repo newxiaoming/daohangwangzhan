@@ -1,0 +1,124 @@
+<include file="header" />
+
+<style>
+.main{background:none repeat scroll 0 0 #fff;border:1px solid #dfdfdf;border-radius:11px 11px 11px 11px;color:#333;font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;margin:2em auto;padding:1em 2em;width:700px}
+p,li,dd,dt{font-size:12px;line-height:18px;padding-bottom:2px}
+.step{margin:20px 0 15px}
+.step,th{padding:0;text-align:left}
+.submit input,.button,.button-secondary { -moz-box-sizing:content-box;border:1px solid #bbb;border-radius:15px 15px 15px 15px;color:#464646;cursor:pointer;font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;font-size:14px!important;line-height:16px;padding:6px 12px;text-decoration:none}
+.button:hover,.button-secondary:hover,.submit input:hover{border-color:#666;color:#000}
+.button,.submit input,.button-secondary{background:#f2f2f2}
+.button:active,.submit input:active,.button-secondary:active{background:#eee}
+.form-table{border-collapse:collapse;margin-top:1em;width:100%}
+.form-table td{border-bottom:1px solid #fff;font-size:12px;margin-bottom:9px;padding:10px}
+.form-table th{border-bottom:1px solid #fff;font-size:13px;padding:16px 10px 10px;text-align:left;vertical-align:top;width:130px}
+.form-table tr{background:none repeat scroll 0 0 #f3f3f3}
+.form-table code{font-size:18px;line-height:18px}
+.form-table p{font-size:11px;margin:4px 0 0}
+.form-table input{font-size:15px;line-height:20px;padding:2px}
+.form-table th p{font-weight:normal}
+#error-page{margin-top:50px}
+#error-page p{font-size:12px;line-height:18px;margin:25px 0 20px}
+#error-page code,.code{font-family:Consolas,Monaco,Courier,monospace}
+#pass-strength-result{background-color:#eee;border-color:#ddd!important;border-style:solid;border-width:1px;display:none;margin:5px 5px 5px 1px;padding:5px;text-align:center;width:200px}
+#pass-strength-result.bad{background-color:#ffb78c;border-color:#ff853c!important}
+#pass-strength-result.good{background-color:#ffec8b;border-color:#fc0!important}
+#pass-strength-result.short{background-color:#ffa0a0;border-color:#f04040!important}
+#pass-strength-result.strong{background-color:#c3ff88;border-color:#8dff1c!important}
+.message{background-color:#ffffe0;border:1px solid #e6db55;margin:5px 0 15px;padding:.3em .6em}
+
+</style>
+
+<!--main-->
+<div class="midder">
+
+<div class="main">
+
+<form action="{:U('Install/setup')}" method="post">
+	<p>请在下方输入数据库相关信息。若您不清楚，请咨询主机提供商。</p>
+	<table class="form-table">
+		<tbody>
+		
+		<tr>
+			<th scope="row"><label for="dbhost">数据库主机</label></th>
+			<td><input type="text" value="localhost" size="25" id="dbhost" name="DB[DB_HOST]"></td>
+			<td>通常情况下，应填写 <code>localhost</code>，若测试连接失败，请联系主机提供商咨询。</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="dbport">端口</label></th>
+			<td><input type="text" value="3306" size="25" id="dbport" name="DB[DB_PORT]"></td>
+			<td>默认3306</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="uname">用户名</label></th>
+			<td><input type="text" value="root" size="25" id="uname" name="DB[DB_USER]"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="dbname">数据库名</label></th>
+			<td><input type="text" value="289w" size="25" id="dbname" name="DB[DB_NAME]"></td>
+			<td>若数据库不存在，将自动创建</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="pwd">密码</label></th>
+			<td><input type="text" value="" size="25" id="pwd" name="DB[DB_PWD]"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="prefix">表名前缀</label></th>
+			<td><input type="text" size="25" value="cc_" id="prefix" name="DB[DB_PREFIX]"></td>
+			<td>若数据库已存在其他表，请修改本项以做区分。</td>
+		</tr>
+	</tbody></table>
+	
+<p>请在下面输入网站信息</p>
+
+	<table class="form-table">
+		<tbody>
+		<tr>
+			<th scope="row"><label for="site_title">网站标题：</label></th>
+			<td><input type="text" value="289w设计师网址导航" size="25" name="SITE[SITE_TITLE]"></td>
+			<td>也是您的网站名称</td>
+		</tr>
+		
+		<tr>
+			<th scope="row"><label for="site_subtitle">网站副标题：</label></th>
+			<td><input type="text" value="IT行业精英人士必备导航，一站在手，天下我有！" size="25" name="SITE[SITE_SONTITLE]"></td>
+			<td>用于首页副标题，紧跟网站标题之后</td>
+		</tr>
+	</tbody>
+	</table>
+
+
+
+<p>请在下面输入管理员信息</p>
+
+	<table class="form-table">
+		<tbody>
+		
+		<tr>
+			<th scope="row"><label for="username">用户名：</label></th>
+			<td><input type="text" value="admin" size="25" name="ADMIN[username]"></td>
+			<td>你的用户名</td>
+		</tr>
+		
+		<tr>
+			<th scope="row"><label for="password">登录密码：</label></th>
+			<td><input type="text" value="123456" size="25" name="ADMIN[pwd]"></td>
+			<td>您的登录密码</td>
+		</tr>
+		
+	</tbody>
+	</table>
+	
+		<p class="step">
+			<input type="hidden" size="25" value="{$root}" id="prefix" name="DB[ROOT_FILE]">
+			<input type="submit" class="button" value="立即安装" name="submit">&nbsp;&nbsp;
+			<span><input name="install_demo" checked type="checkbox" style="vertical-align:middle;">安装测试数据</span>
+		</p>
+</form>
+
+</div>
+
+</div>
+<include file="footer" />

@@ -1,0 +1,40 @@
+
+        <div id="footer">
+        	<div class="wrap">
+                <div class="footer-top">
+                    <ul class="left">
+						<li><b>友情链接：</b></li>
+                    	<volist name="link" id="vo">
+                             <li><a href="{$vo.link}" target="_blank">{$vo.name}</a></li>
+                        </volist>
+                    </ul>
+					<div class="right"><a href="#"><img src="__PUBLIC__/Skins/gobackimg.jpg"></a></div>
+                </div>
+                <div class="footer-bottom">
+                	<dl class="clearfix">
+                    	<dt><a href="{:U('/')}"><img src="<empty name='config.logo'>__PUBLIC__/Skins/logo.png<else />__PUBLIC__/Uploads{$config.logo}</empty>" alt="{$config.title}" /></a></dt>
+                        <dd>
+                        	<div class="copyright">
+								{$config.footer}
+							</div>
+							<!--
+                            <div class="linklist">
+                            	<ul>
+                                	<li><a href="#">关于我们</a></li>
+                                    <li><a href="#">联系我们</a></li>
+                                    <li><a href="#">友情链接</a></li>
+                                </ul>
+                            </div>
+							-->
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div><!--#footer-->
+<script>
+function countClick(url){
+	$.post("http://{$_SERVER['HTTP_HOST']}{:C('ROOT_FILE')}?a=click",{url:url});
+}
+</script> 
+    </body>
+</html>

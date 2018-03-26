@@ -1,0 +1,24 @@
+<include file="Index:header" /> 
+
+<div id="container" class="wrap">
+    
+    <div class="section mtop" id="{$vo.alias}">
+        <h1 class="title">
+            <i class="icon-{$vo.icon}"></i>{:lang('search')}
+        </h1>
+        <div class="content">
+            <ul class="time-list clearfix">
+            	<volist name="list" id="li">
+                <li>
+					<a href="{$li.url}" target="_blank" rel="nofollow">{$li.title} <eq name="li.is_hot" value="1"><img src="__PUBLIC__/Skins/hot.gif" /></eq></a>
+					<p>{$li.description}</p>
+				</li>
+                </volist>
+            </ul>
+        </div>
+    </div><!--.section-->
+    
+</div><!--#container-->
+
+
+<include file="Index:footer" /> 

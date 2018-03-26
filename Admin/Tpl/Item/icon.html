@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>ICON</title>
+<link href="__PUBLIC__/Assets/css/font.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Assets/css/font-ie7.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.min.js"></script>
+<link href="__PUBLIC__/Assets/js/artDialog/skins/black.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/Assets/js/artDialog/jquery.artDialog.min.js" type="text/javascript"></script>
+<style>
+#icon{padding:20px;}
+#icon a{margin-left:8px;font-size:18px;line-height:25px;color:#666;}
+</style>
+</head>
+<body>
+	<div id="icon">
+		<volist name="icon" id="vo">
+			<a class="icon-{$vo}" href="javascript:;" title="{$vo}" onclick="getIcon('{$vo}')"></a>
+		</volist>
+	</div>
+<script type="text/javascript">
+function getIcon(icon){
+	window.top.$('input[name=icon]').val(icon);
+	window.top.$.dialog({id: 'Open'}).close();
+}
+</script>	
+</body>
+</html>

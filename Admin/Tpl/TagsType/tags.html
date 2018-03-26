@@ -1,0 +1,45 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+        	<strong>{:lang('breadclumb_colon')}</strong>
+            {:lang(MODULE_NAME)}<span></span>{:lang('tags')}
+        </h3>
+    </div>
+    <div id="CooperationMain" class="box clear-fix">   
+        <div class="layout-block-header"><a class="btn btn-ok" href="__URL__/tags/do/edit">{:lang('add')}</a></div>
+        
+        <div class="ui-table">
+            <div class="ui-table-body ui-table-body-hover">
+                <table cellpadding="0" cellspacing="0" width="100%" >
+                    <thead>
+                        <tr class="ui-table-head">
+                            <th class="ui-table-hcell ui-table-hcell-sort" width="40">{:lang('id')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('name')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('alias')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('count')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('action')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="list" id="vo">
+                        <tr id="row-{$vo.id}">
+                            <td>{$vo.id}</td>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.alias}</td>
+                            <td>{$vo.count}</td>
+                            <td class="action">
+                                <a href="__URL__/tags/do/edit/id/{$vo.tags_type_id}">{:lang('edit')}</a> |
+                                <q onclick="javascript:Delete('{$vo.id}','{:U('TagsType/proccess/',array('do'=>'delete','id'=>$vo['tags_type_id'],'tags_id'=>$vo['id']))}')">{:lang('delete')}</q>
+                            </td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+          
+        <div class="ui-pager-bar"><div class="ui-pager">{$page}</div></div>
+    </div><!--.box-->
+{:W("Foot")}   

@@ -1,0 +1,18 @@
+<div class="search">
+	<form id="search" action="http://{$_SERVER['HTTP_HOST']}{:C('ROOT_FILE')}" target="_self">
+		<div class="opt" id="search-opt">
+			<a href="javascript:;"><img id="search-img" src="__PUBLIC__/Assets/img/favicon.ico"></a>
+			<div class="list">
+				<a href="http://{$_SERVER['HTTP_HOST']}{:C('ROOT_FILE')}" data-kw="kw"><img src="__PUBLIC__/Assets/img/favicon.ico"><span>站内</span></a>
+				<a href="https://www.baidu.com/baidu" data-kw="word"><img src="__PUBLIC__/Skins/baidu.gif"><span>百度</span></a>
+				<a href="http://www.haosou.com/s" data-kw="q"><img src="__PUBLIC__/Skins/360.png"><span>好搜</span></a>
+				<a href="https://gg.wen.lu/search" data-kw="q"><img src="__PUBLIC__/Skins/google.png"><span>谷歌</span></a>
+				<a href="https://s.taobao.com/search?" data-kw="q"><img src="https://www.taobao.com/favicon.ico"><span>淘宝</span></a>
+			</div>
+		</div>
+		<input type="text" id="search-kw" class="search-input" name="kw" placeholder="{:lang('search')}" autocomplete="off" value="{$_GET['kw']}">
+		<input name="ie" type="hidden" value="utf-8">
+		<input name="a" type="hidden" value="search">
+		<input type="submit" class="search-button" value="">
+	</form>
+</div>

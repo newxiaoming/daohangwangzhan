@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{$seo.title}</title>
+    <meta name="keywords" content="{$seo.keywords}">
+    <meta name="description" content="{$seo.description}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Skins/Mobile/mobile.css" />
+</head>
+<body class="blank blank-index" style="" quick-markup_injected="true">
+    <div class="body2">
+        <div class="pg-wrapper" id="wrapper">
+            <header class="pg-hd"><a href="/" class="logo"><img class="mlogo" src="<empty name='config.logo'>__PUBLIC__/Skins/logo.png<else />__PUBLIC__/Uploads{$config.logo}</empty>" alt="{$config.title}" /></a><a href="javascript:;" id="menuButton" class="iMenuA"></a></header>
+            <div class="pg-top">
+                <div id="searchBox">
+                    <form id="searchForm" name="searchForm" action="http://m.baidu.com/s" method="get">
+                    <input type="text" id="search_input" name="word" tabindex="1" value="" placeholder="百度一下">
+                    <input type="submit" id="search_button" value=" ">
+                    </form>
+                </div>
+                <div class="hotSearchBox">
+                    <div id="hotBox">
+                        <ul class="hotSearch">
+                            <li <if condition="str_replace('/','',ACTION_NAME) EQ 'index'">class="active"</if>><a href="index.php" id="home" >{:lang('index')}</a>
+                            <volist name="navigation" id="nav">
+                                <li <if condition="$actionName EQ $nav['alias']">class="active"</if>><a href="{:U('Index/'.$nav['alias'])}">{$nav.name}</a></li>
+                            </volist>	
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pg-main">
+                <div class="job">
+                    <ul class="jobList">
+                        <volist name="list" id="li">
+                        <li>
+                            <a href="{$li.url}" target="_blank" rel="nofollow" class="allClick">
+                            <div class="jobRight"><span class="jiantou"></span></div>
+                            <div class="jobLeft">
+                                <h3><span href="{$li.url}">{$li.title}</span></h3>
+                                <p><span>{$li.description}</span></p>
+                            </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                    <div class="loading"></div>
+                    <a href="javascript:;" id="getMore">点击加载更多</a>
+                </div>
+            </div>
+            <div class="pg-bottom">
+				<a href="javascript:;" id="gotop" class="gotoTop">回顶部</a>
+				<div class="login"><a href="index.php" rel="nofollow">首页</a></div>
+			</div>
+        </div><!--.pg-wrapper-->
+		<a href="javascript:;" id="gotoTop" class="gotoTop" style="display: none;"></a>
+    
+		<footer class="pg-ft">
+			{$config.footer}
+			
+		</footer>
+	</div><!--.body2-->    
+    
+    <div class="pg-floor" style="display: none;">
+        <div class="fHeader"><a href="{:U('/')}" class="logo">{$config.title}</a></div>
+        <div class="fList">
+            <a href="index.php?s=/Index/index">首页</a>
+            <volist name="navigation" id="nav">
+                <a href="{:U('Index/'.$nav['alias'])}">{$nav.name}</a>
+            </volist>	
+        </div>
+    </div>
+    
+<script type="text/javascript" src="__PUBLIC__/Skins/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Skins/mobile.js"></script>
+</body>
+</html>

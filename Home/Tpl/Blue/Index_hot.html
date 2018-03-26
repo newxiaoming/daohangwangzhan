@@ -1,0 +1,16 @@
+<notempty name="config.item_hot_show">
+<div class="section mtop">
+	<h2 class="title"><i class="icon-map"></i>{:lang('latest_recommend')}</h2>
+	<div class="content">
+		<ul class="gallery-list clearfix">
+			<php>$hot = D('Item')->hotList();</php>
+			<volist name="hot" id="vo">
+			<li>
+				<div class="img" style="width:{$config.recommend_img_width}px"><a href="{$vo.url}" target="_blank" rel="nofollow"><img src="__PUBLIC__/Uploads{$vo.logo}" width="100%" alt="{$vo.title}" /></a></div>
+				<div class="description"><h2>{$vo.title}</h2><p>{$vo.description}</p></div>
+			</li>
+			</volist>
+		</ul>
+	</div>
+</div><!--.section-->
+</notempty>

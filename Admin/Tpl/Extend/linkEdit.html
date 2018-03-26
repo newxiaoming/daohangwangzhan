@@ -1,0 +1,101 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<link  href="__PUBLIC__/Assets/js/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/Assets/js/uploadify/jquery.uploadify.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$('#file_upload').uploadify({
+		'formData'     : {
+			'timestamp' : '{$_SERVER["REQUEST_TIME"]}',
+			'token'     : '{$_SERVER["REQUEST_TIME"]|MD5}'
+		},
+		'onUploadSuccess' : function(file, data, response) {
+			$('#image').val(data);
+		},
+		'swf'         : '__PUBLIC__/Assets/js/uploadify/uploadify.swf',
+		'uploader'    : '__APP__/Public/upload/',
+		'buttonImage' : '__PUBLIC__/Assets/js/uploadify/swfBnt.png',
+		'fileTypeExts': '*.bmp;*.jpg;*.jpeg;*.gif;*.png'//文件格式限制
+
+	});
+});
+</script>
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+        	<strong>{:lang('breadclumb_colon')}</strong>
+            {:lang('index')}<span></span>{:lang('friend_link')}<span></span><empty name="_GET.id">{:lang('add')}<else />{:lang('edit')}</empty>
+        </h3>
+    </div>
+    <div class="box clear-fix">
+        <div class="layout-block-header"><h2>{:lang('details_info')}</h2></div>  
+        <div id="AccountInfo">
+            <div class="info-block">
+                <form method="post" action="{:U('Extend/proccess/')}" id="ajaxform" enctype="multipart/form-data">
+                <table class="info-table">
+                    <tbody>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('website_name_colon')}</th>
+                            <td><input name="name" type="text" class="ui-text validate[required,minSize[2]]" value="{$info.name}" size="60"></td>
+                        </tr>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('website_address_colon')}</th>
+                            <td>
+                            	<input name="link" type="text" class="ui-text validate[required]" value="<empty name="info.link">http://<else />{$info.link}</empty>" size="60">
+                            	<span class="ui-validityshower-info">（示例：http://www.baidu.com）</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{:lang('logo_colon')}</th>
+                            <td>
+                                <input name="image" id="image" type="text" class="ui-text" value="{$info.image}" size="40" style="float:left">
+                                <input id="file_upload" name="file_upload" type="file" multiple="true" value="{:lang('upload')}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{:lang('sortorder_colon')}</th>
+                            <td>
+                                <input name="sort_order" type="text" class="ui-text" value="{$info.sort_order|intval}" size="4">
+                                <span class="ui-validityshower-info">（数字越大越靠前）</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <if condition="isset($_GET['id']) && $_GET['do'] neq 'copyHotel'"><input type="hidden" name="id" value="{$info.id}" /></if>
+                                <input type="hidden" name="module" value="link" />
+                                <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                                <a class="btn" href="{$_SERVER['HTTP_REFERER']}">{:lang('goback')}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>  
+    </div><!--.box-->
+    <link href="__PUBLIC__/Assets/js/validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine-zh_CN.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.form.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $("#ajaxform").validationEngine('attach', {promptPosition : "centerRight", autoPositionUpdate : true});	
+        $('#ajaxform').ajaxForm({
+            timeout: 5000,
+            error:function(){ $('#ajaxLoading').hide();alert("{:lang('ajaxError')}");},
+            beforeSubmit:function(){ $('#ajaxLoading').show();},
+            success:function(data){ 
+                $('#ajaxLoading').hide();
+                if(data.status==1){
+                    var redirectURL = "{$_SERVER['HTTP_REFERER']}";
+                    $.alert(data.info,data.status,function(){window.location.href=redirectURL});
+                }else{
+                    $.alert(data.info,data.status);
+                }
+            },
+            dataType: 'json'
+        });
+    });
+    </script>     
+       
+{:W("Foot")}   

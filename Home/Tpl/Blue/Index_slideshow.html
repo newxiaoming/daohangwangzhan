@@ -1,0 +1,14 @@
+<notempty name="config.slideshow">
+<div class="benner mtop" id="banner">
+	<ul>
+		<php>$slideshow = M('Advert')->where('status=1')->order('sort_order desc')->select();</php>
+		<volist name="slideshow" id="vo">
+			<li><a href="{$vo.link}" target="{$vo.target}"><img src="__PUBLIC__/Uploads{$vo.image}"><div class="banner_content">{$vo.description}</div></a></li>
+		</volist>
+	</ul>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Skins/unslider.min.js"></script>
+<script type="text/javascript">
+$(function() { $('#banner').unslider({fluid: true,dots: true});});
+</script>
+</notempty>

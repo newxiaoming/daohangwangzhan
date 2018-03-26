@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>{$seo.title}</title>
+        <meta name="keywords" content="{$seo.keywords}">
+        <meta name="description" content="{$seo.description}">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Skins/basic.css?v={$Think.const.VERSION}" />
+		<link href="__PUBLIC__/Assets/css/font.css?v={$Think.const.VERSION}" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/Assets/css/font-ie7.css?v={$Think.const.VERSION}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Skins/{:C('DEFAULT_THEME')}/css.css?v={$Think.const.VERSION}" />
+		<link href="__PUBLIC__/Skins/favicon.ico" rel="shortcut icon">
+        <script type="text/javascript" src="__PUBLIC__/Skins/jquery.min.js?v={$Think.const.VERSION}"></script>
+        <script type="text/ecmascript" src="__PUBLIC__/Skins/common.js?v={$Think.const.VERSION}"></script>
+		<style>
+			.wrap{width:<php>echo $config['width']</php>px;min-width:<php>echo $config['width']</php>px;}
+			<empty name="config.category_show_description">.time-list li{height:32px;}</empty>
+		</style>
+    </head>
+    <body data-spy="scroll" data-target="#nav-plane" data-offset="140">
+        <div id="topbar">
+            <div class="wrap">
+                <div class="top-info left">
+                    <span class="welcome">{$config.sub_title}</span>
+                </div>
+                <div class="top-link right">
+                    <a href="javascript:;" onClick="addFav('http://{$_SERVER["HTTP_HOST"]}','{$config.title}')"><i class="icon-folderopen"></i>按Ctrl+D收藏</a>
+                </div>
+            </div>
+        </div><!--#topbar-->
+        
+        <div id="topmain">
+            <div class="wrap">
+                <div class="logo left">
+                	<a href="{:U('/')}"><img src="<empty name='config.logo'>__PUBLIC__/Skins/logo.png<else />__PUBLIC__/Uploads{$config.logo}</empty>" alt="{$config.title}" /></a>
+                </div>
+                <include file="Index:searchForm" /> 
+            </div>
+        </div><!--#topmain-->
+      
+        <div id="topnav">
+            <div class="wrap">
+                <div class="nav">
+                    <ul>
+                        <li <if condition="str_replace('/','',ACTION_NAME) EQ 'index'">class="active"</if>><a href="{:U('Index/index')}" id="home" >{:lang('index')}</a>
+                        <volist name="navigation" id="nav">
+                            <li <if condition="$actionName EQ $nav['alias']">class="active"</if>><a href="{:U('Index/'.$nav['alias'])}">{$nav.name}</a></li>
+                        </volist>	
+					</ul>
+                </div>
+            </div>
+        </div><!--#topnav-->

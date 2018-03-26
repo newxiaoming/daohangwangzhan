@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>{:lang('admin_panel')}</title>
+<link href="__PUBLIC__/Assets/css/esui.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Assets/css/union.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Assets/css/font.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Assets/css/font-ie7.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.fx.js"></script>
+<link href="__PUBLIC__/Assets/js/artDialog/skins/black.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/Assets/js/artDialog/jquery.artDialog.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$('.ajax').click(function(e){
+		var url = $(this).attr('href');
+		e.preventDefault();
+		var dialog = $.dialog({lock: true,title:'操作进行中……',content: '<img src="__PUBLIC__/Assets/img/waiting.gif" />'});
+		$.ajax({
+			type:'get',
+			url:url,
+			dataType:'json',
+			success:function(data){
+				dialog.close();
+				$.dialog({content: data.info,time:5000,ok:true});
+				console.log(data);
+			}
+		})
+	})
+})
+</script>
+</head>
+<body>
+	<div id="MainPage">
+		<div id="Header" class="layout-full-width">
+			<div id="Logo"><a href="{:U('Index/index')}"><img src="__PUBLIC__/Assets/img/logo.png" height="35" /></a></div>
+			<ul id="Toolbar">
+				<li><a href="http://{$_SERVER['HTTP_HOST']}{:C('ROOT_FILE')}" class="toolbar_item" target="_blank">{:lang('website_index')}</a></li>
+				<li><a href="{:U('Public/buildHtml')}" class="toolbar_item ajax">{:lang('静态生成')}</a></li>
+				<li><a href="{:U('Public/delCache')}" class="toolbar_item ajax">{:lang('delete_cache')}</a></li>
+				<li class="last"><a href="{:U('Public/logout')}" class="toolbar_item" >{:lang('logout')}</a></li>
+			</ul>
+			<!-- 主菜单 -->
+            <ul id="Nav">
+                <volist name="menu" id="vo">
+                    <li <eq name='module' value='$key'>class="active"</eq>><a href="{:U($key.'/index')}">{$key|lang}</a></li>
+                </volist>
+            </ul>
+		</div>
+		
+		<div id="MainBody" class="layout-full-width">
+        	<div class="layout-sidebar">
+            	<div class="pinned">
+                	<volist name="menu[$module]" id="vo">
+                        <div class="box sub-nav">
+                            <h3>{$vo.name|lang}</h3>
+                            <ul class="ui-list">
+                                <foreach name="vo.list" key="k" item="m">
+                                    <li <eq name='k' value='$action'>class="active"</eq>>
+                                    	<a href="{:U(MODULE_NAME.'/'.$k)}">{$m|lang}</a>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </volist>
+                </div>
+            </div><!--.layout-sidebar-->

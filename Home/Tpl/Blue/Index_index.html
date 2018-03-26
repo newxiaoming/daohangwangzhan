@@ -1,0 +1,49 @@
+<include file="Index:header" /> 
+
+<div id="container" class="wrap">
+    
+	<include file="Index:slideshow" /> 
+    <include file="Index:hot" /> 
+    
+    <volist name="list" id="vo">
+    <div class="section mtop" id="{$vo.alias}">
+        <h2 class="title">
+            <i class="icon-{$vo.icon}"></i>{$vo.name}
+            <span class="sub-category">
+                <notempty name="vo.category"><a href="{:U('Index/'.$vo['alias'])}" class="current">{:lang('all')}</a></notempty>
+                <volist name="vo.category" id="cat">
+                | <a href="{:U('Index/'.$cat['alias'])}">{$cat.name}</a>
+                </volist>
+            </span>
+            <a href="{:U('Index/'.$vo['alias'])}" class="more">{:lang('more')}&gt;&gt;</a>
+        </h2>
+        <div class="content">
+            <ul class="time-list clearfix">
+            	<volist name="vo.list" id="li">
+                <li>
+					<a href="{$li.url}" target="_blank" rel="nofollow">{$li.title} <eq name="li.is_hot" value="1"><img src="__PUBLIC__/Skins/hot.gif" /></eq></a>
+					<p>{$li.description}</p>
+				</li>
+                </volist>
+            </ul>
+        </div>
+    </div><!--.section-->
+    </volist>
+    
+</div><!--#container-->
+
+<script type="text/javascript">
+$(function(){
+	$('.gallery-list .img').hover(function(){
+		var height = $(this).outerHeight()+10;
+		$(this).parent().addClass('active');
+		$(this).next('.description').css('padding-top',height).stop(true,true).fadeIn();
+	},function(){ $(this).next('.description').stop(true,true).fadeOut('fast',function(){ $(this).parent().removeClass('active');});});	
+	$('.gallery-list a').click(function(){
+		var href = $(this).attr('href');
+		countClick(href);
+	})
+})
+</script>
+<include file="Index:sidenav" />
+<include file="Index:footer" /> 

@@ -1,0 +1,22 @@
+<notempty name="config.sidenav">
+<div id="nav-plane">
+	<ul>
+		<php>$sideNav = 'Index'==ACTION_NAME?$navigation:$list;</php>
+		<volist name="sideNav" id="nav">
+			<li><a href="#{$nav.alias}">{$nav.name}</a></li>
+		</volist>
+	</ul>
+</div>
+</notempty>
+
+<div id="shortcut-box">
+	<a class="qrcode" href="javascript:;"><i><img src="__PUBLIC__/<empty name='config.qrcode'>Skins/qr.png<else />Uploads{$config.qrcode}</empty>" /></i></a>
+	<a class="feedback" href="javascript:;"><span>留言反馈</span></a>
+	<a class="gotop" id="scrollUp" href="#"><span>返回顶部</span></a>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Skins/layer/layer.js"></script>
+<script>
+$('.feedback').on('click', function(){
+    layer.open({  type: 2, area: ['500px', '300px'], shadeClose: true,title:'留言反馈', content: "http://{$_SERVER['HTTP_HOST']}{:C('ROOT_FILE')}?a=message" });
+});
+</script>

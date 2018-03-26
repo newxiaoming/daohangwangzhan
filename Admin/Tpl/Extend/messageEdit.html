@@ -1,0 +1,102 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<div class="layout-main">    
+	<div id="breadclumb" class="box">
+        <h3>
+        	<strong>{:lang('breadclumb_colon')}</strong>
+        	{:lang(MODULE_NAME)}<span></span>{:lang('guestbook')}<span></span>{:lang('reply')}
+        </h3>
+    </div>
+    <form method="post" action="{:U('Extend/proccess/')}" id="ajaxform" enctype="multipart/form-data">
+	<div class="main-box">
+    	<div class="layout-block-header" style="border-bottom:1px solid #ccc;"><h2>{:lang('reply_info')}</h2></div>
+        <table class="info-table">
+            <tbody>
+                <tr>
+                    <th>{:lang('realname_colon')}</th>
+                    <td width="80"><strong>{$info.name}</strong></td>
+                    <th>{:lang('time_colon')}</th>
+                    <td>{$info.create_time|date="Y-m-d H:i:s",###}</td>
+                </tr>
+                <tr>
+                    <th>{:lang('mobile_colon')}</th>
+                    <td width="80"><strong>{$info.mobile}</strong></td>
+                    <th>{:lang('email_colon')}</th>
+                    <td>{$info.email}</td>
+                </tr>
+                <tr>
+                    <th>{:lang('title_colon')}</th>
+                    <td colspan="3">{$info.title}</td>
+                </tr>
+                <tr>
+                    <th>{:lang('content_colon')}</th>
+                    <td colspan="3">{$info.content}</td>
+                </tr>
+            </tbody>
+        </table>
+	</div>    
+    
+    <div class="main-box">
+        
+        <table class="info-table">
+            <tbody>
+                <notempty name="info.is_reply">
+                <tr class="ui-alert">
+                    <th>{:lang('reply_user_colon')}</th>
+                    <td width="80"><strong>{$info.username}</strong></td>
+                    <th>{:lang('reply_time_colon')}</th>
+                    <td>{$info.update_time|date="Y-m-d H:i:s",###}</td>
+                </tr>
+                </notempty>   
+                <tr>
+                    <th>{:lang('reply_content_colon')}</th>
+                    <td colspan="3"><textarea name="reply_content" class="input-textarea" cols="100" rows="10">{$info.reply_content}</textarea></td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td colspan="3">
+                        <input type="hidden" name="id" value="{$info.id}" />
+                        <input type="hidden" name="is_reply" value="1" />
+                        <input type="hidden" name="update_time" value="{:time()}" />
+                        <input type="hidden" name="user_id" value="{$_SESSION['user']['id']}" />
+                        <input type="hidden" name="username" value="{$_SESSION['user']['username']}" />
+                        <input type="hidden" name="module" value="message" />
+                        <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                        <a class="btn" href="{$_SERVER['HTTP_REFERER']}">{:lang('goback')}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </form>
+     
+</div><!--.box-->
+
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.form.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Assets/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript">
+$(function(){
+	var items = [
+		'source', '|','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+		'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+		'insertunorderedlist', '|', 'emoticons', 'image', 'link', '|', 'fullscreen'];
+	KindEditor.create('textarea[name="reply_content"]', {width : '90%',height :100,items : items,afterChange : function(){this.sync();} });
+});
+
+
+$('#ajaxform').ajaxForm({
+	timeout: 5000,
+	error:function(){ alert("{:lang('ajaxError')}");},
+	beforeSubmit:function(){ $('#ajaxLoading').show();},
+	success:function(data){ 
+		$('#ajaxLoading').hide();
+		if(data.status==1){
+			var redirectURL = "{$_SERVER['HTTP_REFERER']}";
+			$.alert(data.info,data.status,function(){window.location.href=redirectURL});
+		}else{
+			$.alert(data.info,data.status);
+		}
+	},
+	dataType: 'json'
+});
+</script>          
+{:W("Foot")}   

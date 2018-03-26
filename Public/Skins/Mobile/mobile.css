@@ -1,0 +1,59 @@
+/*
+ * ÊÖ»úÍøÕ¾
+ */
+*{margin:0;padding:0;border:0}
+a{text-decoration:none}
+ul,ol{list-style:none;}
+button,input,select,textarea{font-family:Arial,Helvetica,"Microsoft YaHei",STHeiti,"Droid Sans Fallback",sans-serif;font-size:100%;margin:0;vertical-align:baseline}
+.blank-index{width:100%;background:#3f4657;}
+.blank{font-family:"Microsoft YaHei",Arial,Helvetica,STHeiti,"Droid Sans Fallback",sans-serif}
+.blank-index .body2{width:100%;height:100%;overflow:hidden;}
+.blank-index .pg-wrapper{position:relative;z-index:2;width:100%;background:#e2e2e2}
+.blank .activeShadow{box-shadow:0 -10px 20px #1f1f1f;}
+.blank .pg-hd{background:#3f4657;padding:10px;text-align:center;overflow:hidden;position:relative}
+.blank .pg-hd .logo{width:160px;height:30px;background-size:100%;display:inline-block;vertical-align:top;font-size:20px;color:#fff}
+.blank a{color:#333}
+.blank .pg-hd .iMenuA{width:30px;height:30px;background:url(icon.png) no-repeat;background-size:100%;display:inline-block;position:absolute;top:10px;left:10px}
+.blank .pg-top{background:#f8f8f8;position:relative;padding:15px 0 0;z-index:1}
+.blank .pg-top #searchBox{border-radius:6px;border:1px solid #b8b8b8;height:28px;background:#fff;padding:4px 0 4px 4px;margin:0 10px;position:relative;display: none;}
+.blank .pg-top #searchBox #search_input{-webkit-appearance:none;padding:0;margin:0;border-radius:0;border:0;height:28px;width:99%;line-height:28px;text-indent:4px;white-space:nowrap;text-overflow:ellipsis;outline:0}
+.blank .pg-top #searchBox #search_button{position:absolute;-webkit-appearance:none;border-radius:0;border:0;width:35px;height:35px;background:url(icon.png) no-repeat 0 -35px;background-size:100%;border-radius:6px;padding:0;right:2px;top:0}
+.blank .pg-top .hotSearchBox{height:40px;border-bottom:2px solid #cacaca;padding:0 10px}
+.blank .pg-top .hotSearchBox #hotBox{padding:2px 0 0;margin-right:22px;position:relative;height:40px;overflow:hidden}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch{white-space:nowrap;text-overflow:ellipsis;position:relative;width:600px;height:38px;transition:left 500ms cubic-bezier(0.165,1.34,.79,1.32)}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch li{float:left;height:38px;line-height:38px;text-align:center;font-size:16px}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch li a{color:#252525;display:block;padding:0 10px}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch li.active {border-bottom: 2px solid #019875;}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch li {float: left;height: 38px;line-height: 38px;text-align: center;font-size: 16px;}
+.blank .pg-top .hotSearchBox #hotBox .hotSearch li.active a {color: #019875;display: block;}
+.blank .pg-top #goRight{width:30px;height:30px;background-image:url(biao.png);background-repeat:no-repeat;background-position:center;background-size:100%;border-radius:50%;filter:Blur(Add=50,Direction=50,Strength=50);background-color:rgba(248,248,248,.6);display:inline-block;position:absolute;right:10px;top:59px}
+.blank-index .pg-wrapper .pg-main{margin:0 5px}
+.blank a{color:#333}
+.blank .job #jobTitle{padding-top:12px;height:32px;line-height:32px;border-bottom:4px solid #999;text-align:left}
+.blank .job #jobTitle .current{display:block}
+.blank .job #jobTitle a{display:none;float:left;text-align:left;height:32px;color:#333;padding:0 15px 0 0;position:relative;font-size:18px;text-indent:4px}
+.blank .job #jobTitle a:after{width:100%;height:4px;background:#3f4657;content:'';position:absolute;left:0;bottom:-4px}
+.blank .job .jobList li .allClick{display:block;overflow:hidden;margin-top:10px;background:#fff;box-shadow:1px 1px 1px #ccc;padding:10px 0 10px 12px}
+.blank .job .jobList li .jobRight{float:right;width:114px;position:relative}
+.blank .job .jobList li .jobRight .date{color:#b3b3b3;display:block;height:20px;line-height:20px;font-size:12px;padding-top:4px;overflow:hidden;text-align:right;margin-right:24px}
+.blank .job .jobList li .jobRight .jiantou{width:30px;height:30px;background:url(icon.png) no-repeat 0 -120px;background-size:100%;position:absolute;z-index:2;right:0;top:14px}
+.blank .job .jobList li .jobLeft{width:90%}
+.blank .job .jobList li .jobLeft h3{height:28px;line-height:28px;color:#555;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:16px}
+.blank .job .jobList li .jobLeft p{margin:0;padding:0;height:24px;line-height:24px;color:#898e91;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:12px}
+.blank #getMore{background:#019875;display:block;height:36px;line-height:36px;text-align:center;margin:10px 20px;color:#fff;border-radius:1px}
+.blank .pg-bottom{height:35px;line-height:35px;padding:0 10px;background:#747778;margin-top:20px;overflow:hidden}
+.blank .pg-bottom #gotop{float:right;color:#fff;width:80px;margin-left:20px}
+.blank .pg-bottom #gotop:before {background: url(icon.png) no-repeat center -57px;background-size: 100%;height: 28px;width: 28px;content: '';display: inline-block;vertical-align: middle;}
+.blank .pg-bottom .login{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.blank .pg-bottom .login a:nth-child(1){color:#fff;margin-right:16px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.blank .pg-ft{clear:both;padding:30px 0;background:#fafafa;position:relative;z-index:100;text-align:center;color:#888;}
+.blank .pg-ft .ysp-switcher{color:#252525;padding:0}
+.blank .pg-floor,.blank .pg-Daohang{position:absolute;z-index:1;left:0;top:0;background:#3f4657;width:100%;min-height:100%;display:none;overflow:hidden;}
+.blank .fHeader{background:#3f4657;padding:10px 10px 10px 15px;overflow:hidden}
+.blank .fHeader .logo{width:90%;height:30px;line-height:30px;overflow:hidden;background-size:100%;display:block;float:left;font-size:25px;color:#fff}
+.blank .fList{border-top:1px solid #333;padding-right:50px}
+.blank .fList a{display:block;border-top:1px solid #656f88;border-bottom:1px solid #242a3a;height:41px;line-height:41px;font-weight:700;color:#f8f8f8;text-indent:28px;font-size:14px}.blank .fList a:last-child{border-bottom:0}
+.blank .pg-ft p{line-height:24px;font-size:14px;margin:0;color:#959595;text-align:center}
+.blank #gotoTop{width:40px;height:40px;background:url(gotoTop.png) no-repeat center;background-size:100%;position:fixed;bottom:20px;right:15px;z-index:200;display:none}
+.blank .loading {margin-top: 10px;height: 40px;background: url(lv2.gif) no-repeat center;background-size: 40px 40px;display: none;}
+.mlogo{margin-top:-5px;height:40px;}

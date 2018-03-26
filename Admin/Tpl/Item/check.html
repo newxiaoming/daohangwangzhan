@@ -1,0 +1,90 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3><strong>{:lang('breadclumb_colon')}</strong>{:lang(MODULE_NAME)}<span></span>{:lang('item_check')}</h3>
+    </div>
+    <div id="CooperationMain" class="box clear-fix">   
+        <div class="layout-block-header">
+            <form action="__SELF__" method="get" id="searchform">
+                <label>{:lang('search_colon')}</label>
+                <input type="text" name="keyword" value="{$_GET['keyword']|trim}" class="ui-text" autocomplete="off" size="40">
+                <select name="tags_id" onchange="form.submit();">
+                	<option value="0">{:lang('please_select_category')}</option>
+                    <volist name="tags" id="li">
+                    	<option value="{$li.tags_type_id}" <eq name="_GET.tags_id" value="$li.tags_type_id">selected="selected"</eq>><gt name="li.level" value="1">&nbsp; &nbsp;└─</gt>{$li.name}({$li.count})</option>
+                    </volist>
+                </select>
+                <button type="submit" class="btn btn-ok">{:lang('search')}</button>
+                <input type="hidden" name="orderby" id="orderby" value="{$_GET.orderby}" />
+            	<input type="hidden" name="sort" id="sort" value="{$_GET.sort}" />
+            	<input type="hidden" name="s" id="s" value="/Item/index" />
+            </form>
+        </div>
+        
+		<form action="{:U('Item/deleteAll')}" method="post" id="deleteform">
+        <div class="ui-table">
+            <div class="ui-table-body ui-table-body-hover">
+                <table cellpadding="0" cellspacing="0" width="100%" >
+                    <thead>
+                        <tr class="ui-table-head">
+                            <th class="ui-table-hcell" width="20"><input type="checkbox" id="check_box" onclick="$.Select.All(this,'id[]');" ></th>
+                            <th class="ui-table-hcell" width="200">{:lang('title')}</th>
+                            <th class="ui-table-hcell">{:lang('category')}</th>
+                            <th class="ui-table-hcell">{:lang('description')}</th>
+							<th class="ui-table-hcell <eq name='_GET.orderby' value='click'>ui-table-hcell-<eq name='_GET.sort' value='asc'>asc<else />desc</eq></eq>" onmouseover="$(this).addClass('ui-table-hcell-hover')" onmouseout="$(this).removeClass('ui-table-hcell-hover')" onclick="orderBy($(this),'click')" width="80">{:lang('click')}<div class="ui-table-hsort"></div></th>
+                            <th class="ui-table-hcell <eq name='_GET.orderby' value='id'>ui-table-hcell-<eq name='_GET.sort' value='asc'>asc<else />desc</eq></eq>" onmouseover="$(this).addClass('ui-table-hcell-hover')" onmouseout="$(this).removeClass('ui-table-hcell-hover')" onclick="orderBy($(this),'id')" width="80">{:lang('time')}<div class="ui-table-hsort"></div></th>
+                            <th class="ui-table-hcell" width="100">{:lang('action')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="list" id="vo">
+                        <tr id="row-{$vo.id}">
+                            <td><input type="checkbox" name="id[]" value="{$vo.id}" onclick="$.Select.This(this);"></td>
+                            <td><a href="{$vo.url}" class="tips" target="_blank" title="<b>{$vo.host}</b><notempty name='vo.logo'><br><img src='__PUBLIC__/Uploads{$vo.logo}' /></notempty>">{$vo.title}<eq name="vo.is_hot" value="1"> <img src="__PUBLIC__/Assets/img/hot.gif" /></eq></a></td>
+                            <td><volist name="vo.tags" id="tags"><neq name="i" value="1">、</neq>{$tags.name}</volist></td>
+                            <td>{$vo.description}</td>
+							<td>{$vo.click|intval}</td>
+                            <td>{$vo.add_time|date="Y-m-d",###}</td>
+                            <td class="action">
+                                <a href="{:U('Item/'.ACTION_NAME,array('do'=>'edit','id'=>$vo['id']))}">{:lang('edit')}</a> |
+								<q onclick="javascript:Delete('{$vo.id}','{:U('Item/proccess/',array('do'=>'delete','id'=>$vo['id']))}')">{:lang('delete')}</q>
+                            </td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+          
+        <div class="ui-pager-bar clearfix" style="padding-left:10px;">
+			<div class="float-left">
+				<input type="checkbox" id="check_box" onclick="$.Select.All(this,'id[]');" >选择/反选 
+				<input type="button" name="delete" value="批量删除" class="btn btn-ok" onclick="delConfirm()">
+			</div>
+			<div class="ui-pager" style="float:right">{$page}</div>
+		</div>
+		
+		</form>
+</div><!--.box-->
+<link rel="stylesheet" href="__PUBLIC__/Assets/js/tips/tip-yellowsimple/tip-yellowsimple.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Assets/js/tips/jquery.poshytip.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.tips').poshytip({
+		className: 'tip-yellowsimple',
+		alignTo: 'target',
+		alignX: 'right',
+		alignY: 'center',
+		offsetX: 10,
+		showTimeout: 100,
+		allowTipHover: true
+	});
+});
+function delConfirm(){
+	$.confirm('是否要删除？',function(){ 
+		$('#deleteform').submit();
+	},true)
+}
+</script>
+{:W("Foot")}   

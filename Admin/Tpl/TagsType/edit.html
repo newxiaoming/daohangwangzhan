@@ -1,0 +1,133 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+        	<strong>{:lang('breadclumb_colon')}</strong>
+            {:lang(MODULE_NAME)}<span></span><eq name="type" value="1">{:lang('tags')}<else />{:lang('category')}</eq><span></span><empty name="_GET.id">{:lang('add')}<else />{:lang('edit')}</empty>
+        </h3>
+    </div>
+    <div class="box clear-fix">
+        <div class="layout-block-header"><h2>{:lang('details_info')}</h2></div>  
+        <div id="AccountInfo">
+            <div class="info-block">
+                <form method="post" action="{:U('TagsType/proccess')}" id="ajaxform" enctype="multipart/form-data">
+                <table class="info-table">
+                    <tbody>
+                    	<eq name="type" value="2">
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('category_colon')}</th>
+                            <td>
+                            	<select name="tags_pid">
+                                	<option value="0">顶级分类</option>
+                                    <volist name="list" id="vo">
+                                    	<option value="{$vo.id}" <eq name="vo.id" value="$info.pid">selected="selected"</eq>  <eq name="vo.id" value="$info.id">disabled="disabled"</eq>><gt name="vo.level" value="1">{:str_repeat("&nbsp;",($vo['level']-1)*3)}└─</gt>{$vo.name}</option>
+                                    </volist>
+                                </select>
+                            </td>
+                        </tr>
+                        </eq>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('name_colon')}</th>
+                            <td><input name="name" type="text" class="ui-text validate[required,minSize[2]]" value="{$info.name}" size="20"></td>
+                        </tr>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('alias_colon')}</th>
+                            <td>
+                                <input name="alias" type="text" class="ui-text validate[required,minSize[2]]" value="{$info.alias}" size="20">
+                                <span class="ui-validityshower-info">（只能使用英文字母，并且不能含有空格）</span>
+                            </td>
+                        </tr>
+                        <eq name="type" value="2">
+                        <tr>
+                            <th>{:lang('icon_colon')}</th>
+                            <td>
+                            	<input name="icon" type="text" class="ui-text" value="{$info.icon}" size="15">
+                            	<button class="ui-button" type="button" onclick="$.open('{:U("Item/icon")}',{width:600,height:350,title:'选择图标'})">选择图标</button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th>{:lang('sortorder_colon')}</th>
+                            <td>
+                                <input name="sort_order" type="text" class="ui-text" value="{$info.sort_order|intval}" size="4">
+                                <span class="ui-validityshower-info">（数字越大越靠前）</span>
+                            </td>
+                        </tr>
+                        </eq>
+
+                        <tr>
+                            <th>{:lang('seo_title_colon')}</th>
+                            <td>
+                                <input name="title" type="text" class="ui-text" value="{$info.title}" size="60">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{:lang('seo_keywords_colon')}</th>
+                            <td>
+                                <input name="keywords" type="text" class="ui-text" value="{$info.keywords}" size="60">
+                            </td>
+                        </tr>
+						<tr>
+                            <th>{:lang('seo_description_info_colon')}</th>
+                            <td>
+                                <textarea name="description" rows="3" cols="70">{$info.description}</textarea>
+                            </td>
+                        </tr>
+						
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                            	<notempty name="_GET.id">
+                                <input type="hidden" name="id" value="{$_GET.id}" />
+                                <input type="hidden" name="tags_id" value="{$info.id}" />
+                                <input type="hidden" name="old_tags_pid" value="{$info.pid}" />
+                                <notempty>
+                                <input type="hidden" name="type" value="{$type}" />
+                                <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                                <a class="btn" href="{$_SERVER['HTTP_REFERER']}">{:lang('goback')}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>  
+    </div><!--.box-->
+<link href="__PUBLIC__/Assets/js/validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine-zh_CN.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.form.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#ajaxform").validationEngine('attach', {promptPosition : "centerRight", autoPositionUpdate : true});	
+    $('#ajaxform').ajaxForm({
+        timeout: 5000,
+        error:function(){ $('#ajaxLoading').hide();alert("{:lang('ajaxError')}");},
+        beforeSubmit:function(){ $('#ajaxLoading').show();},
+        success:function(data){ 
+            $('#ajaxLoading').hide();
+            if(data.status==1){
+                var redirectURL = "{$_SERVER['HTTP_REFERER']}";
+                $.alert(data.info,data.status,function(){window.location.href=redirectURL});
+            }else{
+                $.alert(data.info,data.status);
+            }
+        },
+        dataType: 'json'
+    });
+});
+
+isLink('{$info.is_link}');
+function isLink(id){
+	if(parseInt(id)==1){
+		$('.link_yes').show();	
+		$('.link_no').hide();
+	}else{
+		$('.link_yes').hide();	
+		$('.link_no').show();
+	}
+}
+</script>     
+       
+{:W("Foot")}   

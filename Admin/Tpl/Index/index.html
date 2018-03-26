@@ -1,0 +1,78 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<div class="layout-main">    
+    <div class="layout-block-header box overview-head">
+        <h2 class="overview-username">{$_SESSION.user.username}{:lang('comma_hello')}{$user.username}</h2>
+        <div id="OverviewOptimizeAdvice" style="line-height:1.5em;padding-top:10px;">
+            <p>{:lang('last_login_time_colon')}{$_SESSION.user.login_time}</p>
+            <p>{:lang('last_login_ip_colon')}{$_SESSION.user.login_ip}</p>
+			<notempty name="is_update"><p><br><a class="btn btn-ok" href="{:U('Index/update')}">系统升级</a></p></notempty>
+        </div>
+    </div>
+     
+    <div id="TongjiBar" class="box">
+        <h3>{:lang('system_info')}</h3>
+        <div class="ui-table" style="padding:0 20px;">
+            <table width="100%" border="0" cellpadding="4" cellspacing="1" class="info-table">
+                <tr>
+                    <th style="width:150px;">主机名 (IP：端口)：</th>
+                    <td><php>echo $_SERVER['SERVER_NAME'].' ('.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].')'</php></td>
+                </tr>
+                <tr>
+                    <th>程序目录：</th>
+                    <td><php>echo $_SERVER["DOCUMENT_ROOT"].C('ROOT_FILE');</php></td>
+                </tr>
+                <tr>
+                    <th>Web服务器：</th>
+                    <td><php>echo $_SERVER['SERVER_SOFTWARE']</php></td>
+                </tr>
+                <tr>
+                    <th>PHP 运行方式：</th>
+                    <td><php>echo PHP_SAPI</php></td>
+                </tr>
+                <tr>
+                    <th>PHP版本：</th>
+                    <td><php>echo PHP_VERSION</php></td>
+                </tr>
+                <tr>
+                    <th>MySQL 版本：</th>
+                    <td><php>if (function_exists("mysql_close")) {
+                    echo mysql_get_client_info();
+                    }else{
+                    echo '不支持';
+                    }</php>&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                    <th>GD库版本：</th>
+                    <td><php>
+                    if(function_exists('gd_info')){
+                    $gd = gd_info();
+                    echo $gd['GD Version'];
+                    }else{
+                    echo "不支持";
+                    }
+                    </php></td>
+                </tr>
+                <tr>
+                    <th>最大上传限制：</th>
+                    <td><php>if (ini_get('file_uploads')) {
+                    echo ini_get('upload_max_filesize');
+                    }else{
+                    echo '<span style="color:red">Disabled</span>';
+                    }</php></td>
+                </tr>
+                <tr>
+                    <th>最大执行时间：</th>
+                    <td><php>echo ini_get('max_execution_time')</php>秒</td>
+                </tr>
+                <tr>
+                    <th>采集函数检测：</th>
+                    <td><php>if (ini_get('allow_url_fopen')) {
+                    echo '支持';
+                    }else{
+                    echo '<span style="color:red">不支持</span>';
+                    }</php></td>
+                </tr>     
+            </table>
+        </div>
+    </div><!--.box-->
+{:W("Foot")}

@@ -1,0 +1,124 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+            <strong>{:lang('breadclumb_colon')}</strong>
+            {:lang(MODULE_NAME)}<span></span>{:lang('account_setting')}
+        </h3>
+    </div>
+    <div id="CooperationMain" class="box clear-fix">
+        <div class="layout-block-header"><h2>{:lang('account_info')}</h2></div>  
+        <div id="AccountInfo">
+            
+            <div class="info-block">
+                <form method="post" action="{:U('User/proccess')}" id="ajaxform-password">
+                <table class="info-table" id="js-password">
+                    <thead>
+                        <tr><th>{:lang('modify_password_colon')}</th><td><q class="modify" onclick="infoEdit(this,'#js-password')">{:lang('modify')}</q></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>{:lang('password_colon')}</th><td>******</td></tr>
+                    </tbody>
+                    <tbody style="display:none;">
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('current_password_colon')}</th>
+                            <td><input name="cpassword" type="password" class="ui-text validate[required,minSize[6]]"></td>
+                        </tr>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('new_password_colon')}</th>
+                            <td><input name="password" type="password" id="password" class="ui-text validate[required,minSize[6]]"></td>
+                        </tr>
+                        <tr>
+                            <th><b class="verifing">*</b>{:lang('confirm_password_colon')}</th>
+                            <td><input name="repassword" type="password" class="ui-text validate[required,equals[password]]"></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>  
+                                <input type="hidden" name="id" value="{$info.id}" />
+                                <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                                <input type="button" class="btn" value="{:lang('cancel')}" onclick="infoEdit(this,'#js-password')" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div><!--.info-block-->
+            
+            <div class="info-block">
+                <form method="post" action="{:U('User/proccess')}" id="ajaxform-info">
+                <table class="info-table" id="js-info">
+                    <thead>
+                        <tr><th>{:lang('account_info_colon')}</th><td><q class="modify" onclick="infoEdit(this,'#js-info')">{:lang('modify')}</q></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>{:lang('username_colon')}</th><td>{$info.username}</td></tr>
+                        <tr><th>{:lang('realname_colon')}</th><td>{$info.realname}</td></tr>
+                        <tr><th>{:lang('qq_colon')}</th><td>{$info.qq}</td></tr>
+                        <tr><th>{:lang('email_colon')}</th><td>{$info.email}</td></tr>
+                        <tr><th>{:lang('remark_info_colon')}</th><td><pre>{$info.info}</pre></td></tr>
+                    </tbody>
+                    <tbody style="display:none;">
+                        <tr><th>{:lang('username_colon')}</th><td>{$info.username}</td></tr>
+                        <tr><th><b class="verifing">*</b>{:lang('realname_colon')}</th><td><input name="realname" type="text" class="ui-text validate[required,minSize[2]]" value="{$info.realname}"></td></tr>
+                        <tr><th>{:lang('qq_colon')}</th><td><input name="qq" type="text" class="ui-text" value="{$info.qq}"></td></tr>
+                        <tr><th>{:lang('email_colon')}</th><td><input name="email" type="text" class="ui-text" value="{$info.email}"></td></tr>
+                        <tr><th>{:lang('remark_info_colon')}</th><td><textarea name="info" class="input-textarea" cols="65" rows="5">{$info.info}</textarea></td></tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <input type="hidden" name="id" value="{$info.id}" />
+                                <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                                <input type="button" class="btn" value="{:lang('cancel')}" onclick="infoEdit(this,'#js-info')" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div><!--.info-block-->
+            
+            <div class="info-block" style="display:none;">
+                <form method="post" action="{:U('User/proccess')}" id="ajaxform-mobile">
+                <table class="info-table" id="js-mobile">
+                    <thead>
+                        <tr><th>{:lang('bind_mobile')}</th><td><q class="modify" onclick="infoEdit(this,'#js-mobile')">{:lang('modify')}</q></td></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>{:lang('mobile_colon')}</th><td>{$info.mobile}</td></tr>
+                    </tbody>
+                    <tbody style="display:none;">
+                        <tr><th>{:lang('mobile_colon')}</th><td><input name="mobile" type="text" class="ui-text" value="{$info.mobile}"></td></tr>
+                        <tr><th>{:lang('code_colon')}</th><td><input name="code" type="text" class="ui-text" size="5"> <q class="btn btn-blue-mini">获取验证码</q></td></tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <input type="hidden" name="id" value="{$info.id}" />
+                                <input type="submit" class="btn btn-ok" value="{:lang('confirm')}" />
+                                <input type="button" class="btn" value="{:lang('cancel')}" onclick="infoEdit(this,'#js-mobile')" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div><!--.info-block-->
+        </div>  
+    </div><!--.box-->
+<link href="__PUBLIC__/Assets/js/validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/validation/jquery.validationEngine-zh_CN.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Assets/js/jquery.form.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("form").validationEngine('attach', {promptPosition : "centerRight", autoPositionUpdate : true});	
+	var ajaxParams  = {
+		timeout: 5000,
+		error:function(){ $('#ajaxLoading').hide();alert("{:lang('ajaxError')}");},
+		beforeSubmit:function(){ $('#ajaxLoading').show();},
+		success:function(data){ $('#ajaxLoading').hide();$.alert(data.info,data.status,false);},
+		dataType: 'json'
+	};
+	$('#ajaxform-info').ajaxForm(ajaxParams);
+	$('#ajaxform-password').ajaxForm(ajaxParams);
+})
+</script>            
+{:W("Foot")}   

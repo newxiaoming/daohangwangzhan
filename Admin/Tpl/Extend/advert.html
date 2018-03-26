@@ -1,0 +1,46 @@
+{:W("Main",array('module'=>MODULE_NAME,'action'=>ACTION_NAME,'do'=>$_GET['do']))}
+<div class="layout-main">    
+    <div id="breadclumb" class="box">
+        <h3>
+        	<strong>{:lang('breadclumb_colon')}</strong>
+            {:lang('index')}<span></span>{:lang('advert_slideshow')}
+        </h3>
+    </div>
+    <div id="CooperationMain" class="box clear-fix">   
+        <div class="layout-block-header"><a class="btn btn-ok" href="{:U('Extend/advert',array('do'=>'edit'))}">{:lang('add')}</a></div>
+        
+        <div class="ui-table">
+            <div class="ui-table-body ui-table-body-hover">
+                <table cellpadding="0" cellspacing="0" width="100%" >
+                    <thead>
+                        <tr class="ui-table-head">
+                            <th class="ui-table-hcell ui-table-hcell-sort" width="40">{:lang('id')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('name')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort">{:lang('image')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort" width="60">{:lang('status')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort" width="80">{:lang('time')}</th>
+                            <th class="ui-table-hcell ui-table-hcell-sort" width="100">{:lang('action')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="list" id="vo">
+                        <tr id="row-{$vo.id}">
+                            <td>{$vo.id}</td>
+                            <td>{$vo.name}</td>
+                            <td><a href="__PUBLIC__/Uploads{$vo.image}" target="_blank"><img src="__PUBLIC__/Uploads{$vo.image}" height="40" /></a></td>
+                            <td>{$vo.status|status="image"}</td>
+                            <td>{$vo.create_time|date="Y-m-d",###}</td>
+                            <td class="action">
+                                <a href="{:U('Extend/advert',array('do'=>'edit','id'=>$vo['id']))}">{:lang('edit')}</a> |
+                                <q onclick="javascript:Delete('{$vo.id}','{:U('Extend/delete/',array('module'=>'Advert','id'=>$vo['id']))}')">{:lang('delete')}</q>
+                            </td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+          
+        <div class="ui-pager-bar"><div class="ui-pager">{$page}</div></div>
+    </div><!--.box-->
+{:W("Foot")}   
